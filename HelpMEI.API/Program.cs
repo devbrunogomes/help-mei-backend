@@ -1,36 +1,37 @@
 
-namespace HelpMEI.API
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+using HelpMEI.Application.Configurations;
+using HelpMEI.Infrastructure.Configurations;
 
-            // Add services to the container.
+namespace HelpMEI.API {
+	public class Program {
+		public static void Main(string[] args) {
+			var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+			// Add services to the container.
+			builder.Services.AddApplication();
+			builder.Services.AddInfrastructure();
 
-            var app = builder.Build();
+			builder.Services.AddControllers();
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+			var app = builder.Build();
 
-            app.UseHttpsRedirection();
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment()) {
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
 
-            app.UseAuthorization();
+			app.UseHttpsRedirection();
+
+			app.UseAuthorization();
 
 
-            app.MapControllers();
+			app.MapControllers();
 
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }
